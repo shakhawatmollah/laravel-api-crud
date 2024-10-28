@@ -2,6 +2,14 @@
 
 This project is a RESTful API built with Laravel 11, providing basic CRUD functionality for an `Article` resource and user authentication using Laravel Sanctum.
 
+### Authentication
+
+This project uses **Laravel Sanctum** for API token-based authentication.
+
+- Register and log in users using Sanctum.
+- Protect routes with Sanctum's `auth:sanctum` middleware for authenticated access.
+- Use custom `AdminMiddleware` to secure routes for users with administrative roles.
+
 ### Prerequisites
 
 - PHP >= 8.2
@@ -13,8 +21,34 @@ This project is a RESTful API built with Laravel 11, providing basic CRUD functi
    ```bash
    git clone https://github.com/shakhawatmollah/laravel-api-crud.git
    cd laravel-api-crud
+   ```
+### Running the Application
 
-## Project Create - Start
+**Serve the Application**
+   ```bash
+   php artisan serve
+   ```
+
+### API Endpoints
+
+- **Authentication**
+    - `POST /api/register` – Register a new user.
+    - `POST /api/login` – Log in a user and retrieve a token.
+    - `POST /api/logout` – Log out the authenticated user.
+
+- **Articles**
+    - `GET /api/v1/articles` – List all articles.
+    - `GET /api/v1/articles/{id}` – Show a single article.
+    - `POST /api/v1/articles` – Create a new article (Admin only).
+    - `PUT /api/v1/articles/{id}` – Update an article (Admin only).
+    - `DELETE /api/v1/articles/{id}` – Delete an article (Admin only).
+
+## Additional Information in Project Create
+
+1. **Install Laravel Installer (If not installed)**
+    ```bash
+    composer global require laravel/installer
+    ```
 
 2. **Create a New Laravel Project**
    ```bash
@@ -83,33 +117,8 @@ This project is a RESTful API built with Laravel 11, providing basic CRUD functi
    ```bash
    php artisan migrate:fresh
    ```
-## Project Create - End
 
-### Authentication
-
-This project uses **Laravel Sanctum** for API token-based authentication.
-
-- Register and log in users using Sanctum.
-- Protect routes with Sanctum's `auth:sanctum` middleware for authenticated access.
-- Use custom `AdminMiddleware` to secure routes for users with administrative roles.
-
-### API Endpoints
-
-- **Authentication**
-    - `POST /api/register` – Register a new user.
-    - `POST /api/login` – Log in a user and retrieve a token.
-    - `POST /api/logout` – Log out the authenticated user.
-
-- **Articles**
-    - `GET /api/v1/articles` – List all articles.
-    - `GET /api/v1/articles/{id}` – Show a single article.
-    - `POST /api/v1/articles` – Create a new article (Admin only).
-    - `PUT /api/v1/articles/{id}` – Update an article (Admin only).
-    - `DELETE /api/v1/articles/{id}` – Delete an article (Admin only).
-
-### Running the Application
-
-1. **Serve the Application**
+7. **Run Database Seeders**
    ```bash
-   php artisan serve
+   php artisan db:seed
    ```
