@@ -2,6 +2,16 @@
 
 This project is a RESTful API built with Laravel 11, providing basic CRUD functionality for an `Article` resource and user authentication using Laravel Sanctum.
 
+### Features
+
+- **Authentication**: User registration, login, and logout.
+- **Authorization**: Admin access control.
+- **Laravel Sanctum**: API token-based authentication.
+- **Policy**: Authorization using policies.
+- **RESTful API**: Create, read, update, and delete articles.
+- **Database**: SQLite or any other supported database.
+- **API Documentation**: [View API Documentation](https://github.com/shakhawatmollah/laravel-api-crud/blob/main/README.md)
+
 ### Authentication
 
 This project uses **Laravel Sanctum** for API token-based authentication.
@@ -122,3 +132,11 @@ This project uses **Laravel Sanctum** for API token-based authentication.
    ```bash
    php artisan db:seed
    ```
+
+### Contributing
+
+If you'd like to contribute to this project, please follow the [contributing guidelines](https://github.com/shakhawatmollah/laravel-api-crud/blob/main/CONTRIBUTING.md).
+
+### Support
+
+If you have any questions or need further assistance, please don't hesitate to [contact me](https://github.com/shakhawatmollah).
