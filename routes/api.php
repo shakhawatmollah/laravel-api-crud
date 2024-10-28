@@ -22,5 +22,10 @@ Route::middleware('auth:sanctum', AdminMiddleware::class)->group(function () {
 });
 
 Route::prefix('v1/')->middleware('auth:sanctum')->group(function () {
-    Route::apiResource('articles', ArticleController::class);
+    Route::apiResource('articles', ArticleController::class, [
+        'except' => ['index', 'show'],
+    ]);
 });
+
+Route::get('/v1/articles', [ArticleController::class, 'index']);
+Route::get('/v1/articles/{id}', [ArticleController::class, 'show']);
