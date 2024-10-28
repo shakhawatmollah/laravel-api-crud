@@ -6,9 +6,17 @@ use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ArticleController extends ApiController
+class ArticleController extends ApiController implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */
@@ -23,7 +31,9 @@ class ArticleController extends ApiController
      */
     public function store(ArticleStoreRequest $request)
     {
-        $article = Article::create($request->validated());
+      //  $article = Article::create($request->validated());
+
+        $article = $request->user()->articles()->create($request->validated());
 
         return $this->successResponse($article, "Article created successfully.", 201);
     }
@@ -69,4 +79,5 @@ class ArticleController extends ApiController
         $article->delete();
         return $this->successResponse(null, "Article deleted successfully.");
     }
+
 }

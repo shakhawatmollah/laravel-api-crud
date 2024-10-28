@@ -1,66 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel 11 API CRUD with Authentication using Laravel Sanctum
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a RESTful API built with Laravel 11, providing basic CRUD functionality for an `Article` resource and user authentication using Laravel Sanctum.
 
-## About Laravel
+### Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP >= 8.2
+- SQLite or any other supported database
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/shakhawatmollah/laravel-api-crud.git
+   cd laravel-api-crud
 
-## Learning Laravel
+## Project Create - Start
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Create a New Laravel Project**
+   ```bash
+   laravel new laravel-api-crud
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Install Dependencies**
+   ```bash
+   composer install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Set Up Environment Variables**
 
-## Laravel Sponsors
+   Copy the `.env.example` file to create a new `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   Update the `.env` file with your database configuration and Sanctum settings.
 
-### Premium Partners
+5. **Run the API Installation Command**
+   ```bash
+   php artisan install:api
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+6. **Generate an Application Key**
+   ```bash
+   php artisan key:generate
+   ```
 
-## Contributing
+### Commands Used in Project Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Create the Article Model, Migration, and Controller for API**
+   ```bash
+   php artisan make:model Article -mc --api
+   ```
 
-## Code of Conduct
+2. **Create Form Requests for Article Validation**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    - **Store Request**: For validation when creating an article
+      ```bash
+      php artisan make:request ArticleStoreRequest
+      ```
 
-## Security Vulnerabilities
+    - **Update Request**: For validation when updating an article
+      ```bash
+      php artisan make:request ArticleUpdateRequest
+      ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Add Role Column to Users Table**
+   ```bash
+   php artisan make:migration add_role_to_users_table
+   ```
 
-## License
+4. **Create Authentication Controller**
+   ```bash
+   php artisan make:controller AuthController
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. **Create Middleware for Admin Access**
+   ```bash
+   php artisan make:middleware AdminMiddleware
+   ```
+
+6. **Run Database Migrations**
+   ```bash
+   php artisan migrate:fresh
+   ```
+## Project Create - End
+
+### Authentication
+
+This project uses **Laravel Sanctum** for API token-based authentication.
+
+- Register and log in users using Sanctum.
+- Protect routes with Sanctum's `auth:sanctum` middleware for authenticated access.
+- Use custom `AdminMiddleware` to secure routes for users with administrative roles.
+
+### API Endpoints
+
+- **Authentication**
+    - `POST /api/register` – Register a new user.
+    - `POST /api/login` – Log in a user and retrieve a token.
+    - `POST /api/logout` – Log out the authenticated user.
+
+- **Articles**
+    - `GET /api/v1/articles` – List all articles.
+    - `GET /api/v1/articles/{id}` – Show a single article.
+    - `POST /api/v1/articles` – Create a new article (Admin only).
+    - `PUT /api/v1/articles/{id}` – Update an article (Admin only).
+    - `DELETE /api/v1/articles/{id}` – Delete an article (Admin only).
+
+### Running the Application
+
+1. **Serve the Application**
+   ```bash
+   php artisan serve
+   ```
