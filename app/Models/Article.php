@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\TracksChanges;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, TracksChanges;
     protected $fillable = [
         'title',
-        'body'
+        'body',
+        'created_by',
+        'updated_by'
     ];
 
     public function user()
